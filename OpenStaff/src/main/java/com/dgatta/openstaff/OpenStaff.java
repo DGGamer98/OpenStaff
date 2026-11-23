@@ -1,7 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
-
 package com.dgatta.openstaff;
 
 /**
@@ -11,5 +10,6 @@ package com.dgatta.openstaff;
 public class OpenStaff {
 
     public static void main(String[] args) {
+        
     }
 }
