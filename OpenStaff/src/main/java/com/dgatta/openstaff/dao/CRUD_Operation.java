@@ -9,40 +9,56 @@ import com.dgatta.openstaff.Exception.ProgettoEsistente;
 import com.dgatta.openstaff.model.Employee;
 import com.dgatta.openstaff.model.Project;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author dgatta
  */
-public class CRUD_peration {
-    //Uso delle liste per simulare un database(provvisorio)
-    private List <Employee> dbEmployee = new ArrayList<>();
-    private List <Project> dbProject = new ArrayList<>();
+public class CRUD_Operation {
+    //Uso delle Mappe per simulare un database(provvisorio)
+    private Map <Integer, Employee> dbEmployee = new HashMap<>();
+    private Map <Integer, Project> dbProject = new HashMap<>();
     
-    
-    //Operation add
-    public void addEmploye(Employee imp) throws ImpiegatoPresente{
-        for (Employee employee : dbEmployee) {
-            if(employee.getName().equals(imp.getName())) {
-                throw new ImpiegatoPresente("L'impiegato" + imp.getName() + "è già presente ");
-            }
+    //Metodi add
+    public Employee addEmploy(int id, Employee impl) throws ImpiegatoPresente {
+        if(dbEmployee.containsKey(id)) {
+            throw new ImpiegatoPresente("Impiegato già presente nel database"); //Ovviamente per essere univoco uso per adesso la chiave. Con il database uso il codice fiscale
         }
         
-        dbEmployee.add(imp);
-        System.out.println("[LOG] impiegato aggiunto");
+        dbEmployee.put(id, impl);
+        System.out.println("[LOG] impiergato aggiunto con sucesso");
+        return impl;
     }
     
-    public void addProject(Project prj) throws ProgettoEsistente{
-        for (Project project : dbProject) {
-            if(project.getNameProject().equals(prj.getNameProject())) {
-                throw new ProgettoEsistente("Progetto esistente");
-            }
+    public Project addProject(int id, Project prj) throws ProgettoEsistente{
+        if(dbProject.containsKey(id)) {
+            throw new ProgettoEsistente("Progetto già esistente in OpenStaff");
         }
-        
-        dbProject.add(prj);
-        System.out.println("[LOG] progetto inserito");
+        dbProject.put(id, prj);
+        System.out.println("[LOG] progetto agginto con sucesso");
+        return prj;
     }
+    
+    //TODO Davide --> Creare la logica per non inserire duplicati
+    public void aggregaEmployeProject(Project prj, Employee impl) {
+        prj.getPartecipanti().add(impl);
+        System.out.println("[LOG] impiegato associato con sucesso");
+    }
+    
+    public void printEmployee() {
+        for (Integer key : dbEmployee.keySet()) {
+            System.out.println("key: " + key + "value: " + dbEmployee.get(key)); //dbEmployee.get(key) ogni iterazione stampo il valore di key con get
+        }
+    }
+    public void printProject() {
+        for (Integer key : dbProject.keySet()) {
+            System.out.println("Key: " + key + "value: " + dbProject.get(key));
+        }
+    }
+    
     
     
     

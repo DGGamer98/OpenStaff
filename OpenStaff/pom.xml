@@ -5,9 +5,32 @@
     <artifactId>OpenStaff</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <!-- chiede al compilatore di produrre codice compatibile con java 21 -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
         <exec.mainClass>com.dgatta.openstaff.OpenStaff</exec.mainClass>
     </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.dgatta.openstaff.OpenStaff</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
